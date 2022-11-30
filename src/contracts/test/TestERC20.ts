@@ -1,4 +1,4 @@
-import {IWallet, Contract, Transaction, TransactionReceipt, Utils, BigNumber, Event, IBatchRequestObj} from "@ijstech/eth-wallet";
+import {IWallet, Contract, Transaction, TransactionReceipt, BigNumber, Event, IBatchRequestObj, TransactionOptions} from "@ijstech/eth-contract";
 import Bin from "./TestERC20.json";
 
 export interface IDeployParams {name:string;symbol:string;decimals:number|BigNumber}
@@ -20,8 +20,8 @@ export class TestERC20 extends Contract{
         super(wallet, address, Bin.abi, Bin.bytecode);
         this.assign()
     }
-    deploy(params: IDeployParams): Promise<string>{
-        return this.__deploy([params.name,params.symbol,Utils.toString(params.decimals)]);
+    deploy(params: IDeployParams, options?: TransactionOptions): Promise<string>{
+        return this.__deploy([params.name,params.symbol,this.wallet.utils.toString(params.decimals)], options);
     }
     parseApprovalEvent(receipt: TransactionReceipt): TestERC20.ApprovalEvent[]{
         return this.parseEvents(receipt, "Approval").map(e=>this.decodeApprovalEvent(e));
@@ -104,337 +104,337 @@ export class TestERC20 extends Contract{
         };
     }
     DEFAULT_ADMIN_ROLE: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     }
     MINTER_ROLE: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     }
     PAUSER_ROLE: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     }
     _decimals: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     }
     allowance: {
-        (params: IAllowanceParams): Promise<BigNumber>;
+        (params: IAllowanceParams, options?: TransactionOptions): Promise<BigNumber>;
     }
     approve: {
-        (params: IApproveParams): Promise<TransactionReceipt>;
-        call: (params: IApproveParams) => Promise<boolean>;
+        (params: IApproveParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IApproveParams, options?: TransactionOptions) => Promise<boolean>;
     }
     balanceOf: {
-        (account:string): Promise<BigNumber>;
+        (account:string, options?: TransactionOptions): Promise<BigNumber>;
     }
     burn: {
-        (amount:number|BigNumber): Promise<TransactionReceipt>;
-        call: (amount:number|BigNumber) => Promise<void>;
+        (amount:number|BigNumber, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (amount:number|BigNumber, options?: TransactionOptions) => Promise<void>;
     }
     burnFrom: {
-        (params: IBurnFromParams): Promise<TransactionReceipt>;
-        call: (params: IBurnFromParams) => Promise<void>;
+        (params: IBurnFromParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IBurnFromParams, options?: TransactionOptions) => Promise<void>;
     }
     decimals: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     }
     decreaseAllowance: {
-        (params: IDecreaseAllowanceParams): Promise<TransactionReceipt>;
-        call: (params: IDecreaseAllowanceParams) => Promise<boolean>;
+        (params: IDecreaseAllowanceParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IDecreaseAllowanceParams, options?: TransactionOptions) => Promise<boolean>;
     }
     getRoleAdmin: {
-        (role:string): Promise<string>;
+        (role:string, options?: TransactionOptions): Promise<string>;
     }
     getRoleMember: {
-        (params: IGetRoleMemberParams): Promise<string>;
+        (params: IGetRoleMemberParams, options?: TransactionOptions): Promise<string>;
     }
     getRoleMemberCount: {
-        (role:string): Promise<BigNumber>;
+        (role:string, options?: TransactionOptions): Promise<BigNumber>;
     }
     grantRole: {
-        (params: IGrantRoleParams): Promise<TransactionReceipt>;
-        call: (params: IGrantRoleParams) => Promise<void>;
+        (params: IGrantRoleParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IGrantRoleParams, options?: TransactionOptions) => Promise<void>;
     }
     hasRole: {
-        (params: IHasRoleParams): Promise<boolean>;
+        (params: IHasRoleParams, options?: TransactionOptions): Promise<boolean>;
     }
     increaseAllowance: {
-        (params: IIncreaseAllowanceParams): Promise<TransactionReceipt>;
-        call: (params: IIncreaseAllowanceParams) => Promise<boolean>;
+        (params: IIncreaseAllowanceParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IIncreaseAllowanceParams, options?: TransactionOptions) => Promise<boolean>;
     }
     mint: {
-        (params: IMintParams): Promise<TransactionReceipt>;
-        call: (params: IMintParams) => Promise<void>;
+        (params: IMintParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IMintParams, options?: TransactionOptions) => Promise<void>;
     }
     name: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     }
     pause: {
-        (): Promise<TransactionReceipt>;
-        call: () => Promise<void>;
+        (options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (options?: TransactionOptions) => Promise<void>;
     }
     paused: {
-        (): Promise<boolean>;
+        (options?: TransactionOptions): Promise<boolean>;
     }
     renounceRole: {
-        (params: IRenounceRoleParams): Promise<TransactionReceipt>;
-        call: (params: IRenounceRoleParams) => Promise<void>;
+        (params: IRenounceRoleParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IRenounceRoleParams, options?: TransactionOptions) => Promise<void>;
     }
     revokeRole: {
-        (params: IRevokeRoleParams): Promise<TransactionReceipt>;
-        call: (params: IRevokeRoleParams) => Promise<void>;
+        (params: IRevokeRoleParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IRevokeRoleParams, options?: TransactionOptions) => Promise<void>;
     }
     supportsInterface: {
-        (interfaceId:string): Promise<boolean>;
+        (interfaceId:string, options?: TransactionOptions): Promise<boolean>;
     }
     symbol: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     }
     totalSupply: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     }
     transfer: {
-        (params: ITransferParams): Promise<TransactionReceipt>;
-        call: (params: ITransferParams) => Promise<boolean>;
+        (params: ITransferParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: ITransferParams, options?: TransactionOptions) => Promise<boolean>;
     }
     transferFrom: {
-        (params: ITransferFromParams): Promise<TransactionReceipt>;
-        call: (params: ITransferFromParams) => Promise<boolean>;
+        (params: ITransferFromParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: ITransferFromParams, options?: TransactionOptions) => Promise<boolean>;
     }
     unpause: {
-        (): Promise<TransactionReceipt>;
-        call: () => Promise<void>;
+        (options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (options?: TransactionOptions) => Promise<void>;
     }
     private assign(){
-        let DEFAULT_ADMIN_ROLE_call = async (): Promise<string> => {
-            let result = await this.call('DEFAULT_ADMIN_ROLE');
+        let DEFAULT_ADMIN_ROLE_call = async (options?: TransactionOptions): Promise<string> => {
+            let result = await this.call('DEFAULT_ADMIN_ROLE',[],options);
             return result;
         }
         this.DEFAULT_ADMIN_ROLE = DEFAULT_ADMIN_ROLE_call
-        let MINTER_ROLE_call = async (): Promise<string> => {
-            let result = await this.call('MINTER_ROLE');
+        let MINTER_ROLE_call = async (options?: TransactionOptions): Promise<string> => {
+            let result = await this.call('MINTER_ROLE',[],options);
             return result;
         }
         this.MINTER_ROLE = MINTER_ROLE_call
-        let PAUSER_ROLE_call = async (): Promise<string> => {
-            let result = await this.call('PAUSER_ROLE');
+        let PAUSER_ROLE_call = async (options?: TransactionOptions): Promise<string> => {
+            let result = await this.call('PAUSER_ROLE',[],options);
             return result;
         }
         this.PAUSER_ROLE = PAUSER_ROLE_call
-        let _decimals_call = async (): Promise<BigNumber> => {
-            let result = await this.call('_decimals');
+        let _decimals_call = async (options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('_decimals',[],options);
             return new BigNumber(result);
         }
         this._decimals = _decimals_call
         let allowanceParams = (params: IAllowanceParams) => [params.owner,params.spender];
-        let allowance_call = async (params: IAllowanceParams): Promise<BigNumber> => {
-            let result = await this.call('allowance',allowanceParams(params));
+        let allowance_call = async (params: IAllowanceParams, options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('allowance',allowanceParams(params),options);
             return new BigNumber(result);
         }
         this.allowance = allowance_call
-        let balanceOf_call = async (account:string): Promise<BigNumber> => {
-            let result = await this.call('balanceOf',[account]);
+        let balanceOf_call = async (account:string, options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('balanceOf',[account],options);
             return new BigNumber(result);
         }
         this.balanceOf = balanceOf_call
-        let decimals_call = async (): Promise<BigNumber> => {
-            let result = await this.call('decimals');
+        let decimals_call = async (options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('decimals',[],options);
             return new BigNumber(result);
         }
         this.decimals = decimals_call
-        let getRoleAdmin_call = async (role:string): Promise<string> => {
-            let result = await this.call('getRoleAdmin',[Utils.stringToBytes32(role)]);
+        let getRoleAdmin_call = async (role:string, options?: TransactionOptions): Promise<string> => {
+            let result = await this.call('getRoleAdmin',[this.wallet.utils.stringToBytes32(role)],options);
             return result;
         }
         this.getRoleAdmin = getRoleAdmin_call
-        let getRoleMemberParams = (params: IGetRoleMemberParams) => [Utils.stringToBytes32(params.role),Utils.toString(params.index)];
-        let getRoleMember_call = async (params: IGetRoleMemberParams): Promise<string> => {
-            let result = await this.call('getRoleMember',getRoleMemberParams(params));
+        let getRoleMemberParams = (params: IGetRoleMemberParams) => [this.wallet.utils.stringToBytes32(params.role),this.wallet.utils.toString(params.index)];
+        let getRoleMember_call = async (params: IGetRoleMemberParams, options?: TransactionOptions): Promise<string> => {
+            let result = await this.call('getRoleMember',getRoleMemberParams(params),options);
             return result;
         }
         this.getRoleMember = getRoleMember_call
-        let getRoleMemberCount_call = async (role:string): Promise<BigNumber> => {
-            let result = await this.call('getRoleMemberCount',[Utils.stringToBytes32(role)]);
+        let getRoleMemberCount_call = async (role:string, options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('getRoleMemberCount',[this.wallet.utils.stringToBytes32(role)],options);
             return new BigNumber(result);
         }
         this.getRoleMemberCount = getRoleMemberCount_call
-        let hasRoleParams = (params: IHasRoleParams) => [Utils.stringToBytes32(params.role),params.account];
-        let hasRole_call = async (params: IHasRoleParams): Promise<boolean> => {
-            let result = await this.call('hasRole',hasRoleParams(params));
+        let hasRoleParams = (params: IHasRoleParams) => [this.wallet.utils.stringToBytes32(params.role),params.account];
+        let hasRole_call = async (params: IHasRoleParams, options?: TransactionOptions): Promise<boolean> => {
+            let result = await this.call('hasRole',hasRoleParams(params),options);
             return result;
         }
         this.hasRole = hasRole_call
-        let name_call = async (): Promise<string> => {
-            let result = await this.call('name');
+        let name_call = async (options?: TransactionOptions): Promise<string> => {
+            let result = await this.call('name',[],options);
             return result;
         }
         this.name = name_call
-        let paused_call = async (): Promise<boolean> => {
-            let result = await this.call('paused');
+        let paused_call = async (options?: TransactionOptions): Promise<boolean> => {
+            let result = await this.call('paused',[],options);
             return result;
         }
         this.paused = paused_call
-        let supportsInterface_call = async (interfaceId:string): Promise<boolean> => {
-            let result = await this.call('supportsInterface',[interfaceId]);
+        let supportsInterface_call = async (interfaceId:string, options?: TransactionOptions): Promise<boolean> => {
+            let result = await this.call('supportsInterface',[interfaceId],options);
             return result;
         }
         this.supportsInterface = supportsInterface_call
-        let symbol_call = async (): Promise<string> => {
-            let result = await this.call('symbol');
+        let symbol_call = async (options?: TransactionOptions): Promise<string> => {
+            let result = await this.call('symbol',[],options);
             return result;
         }
         this.symbol = symbol_call
-        let totalSupply_call = async (): Promise<BigNumber> => {
-            let result = await this.call('totalSupply');
+        let totalSupply_call = async (options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('totalSupply',[],options);
             return new BigNumber(result);
         }
         this.totalSupply = totalSupply_call
-        let approveParams = (params: IApproveParams) => [params.spender,Utils.toString(params.amount)];
-        let approve_send = async (params: IApproveParams): Promise<TransactionReceipt> => {
-            let result = await this.send('approve',approveParams(params));
+        let approveParams = (params: IApproveParams) => [params.spender,this.wallet.utils.toString(params.amount)];
+        let approve_send = async (params: IApproveParams, options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('approve',approveParams(params),options);
             return result;
         }
-        let approve_call = async (params: IApproveParams): Promise<boolean> => {
-            let result = await this.call('approve',approveParams(params));
+        let approve_call = async (params: IApproveParams, options?: TransactionOptions): Promise<boolean> => {
+            let result = await this.call('approve',approveParams(params),options);
             return result;
         }
         this.approve = Object.assign(approve_send, {
             call:approve_call
         });
-        let burn_send = async (amount:number|BigNumber): Promise<TransactionReceipt> => {
-            let result = await this.send('burn',[Utils.toString(amount)]);
+        let burn_send = async (amount:number|BigNumber, options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('burn',[this.wallet.utils.toString(amount)],options);
             return result;
         }
-        let burn_call = async (amount:number|BigNumber): Promise<void> => {
-            let result = await this.call('burn',[Utils.toString(amount)]);
+        let burn_call = async (amount:number|BigNumber, options?: TransactionOptions): Promise<void> => {
+            let result = await this.call('burn',[this.wallet.utils.toString(amount)],options);
             return;
         }
         this.burn = Object.assign(burn_send, {
             call:burn_call
         });
-        let burnFromParams = (params: IBurnFromParams) => [params.account,Utils.toString(params.amount)];
-        let burnFrom_send = async (params: IBurnFromParams): Promise<TransactionReceipt> => {
-            let result = await this.send('burnFrom',burnFromParams(params));
+        let burnFromParams = (params: IBurnFromParams) => [params.account,this.wallet.utils.toString(params.amount)];
+        let burnFrom_send = async (params: IBurnFromParams, options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('burnFrom',burnFromParams(params),options);
             return result;
         }
-        let burnFrom_call = async (params: IBurnFromParams): Promise<void> => {
-            let result = await this.call('burnFrom',burnFromParams(params));
+        let burnFrom_call = async (params: IBurnFromParams, options?: TransactionOptions): Promise<void> => {
+            let result = await this.call('burnFrom',burnFromParams(params),options);
             return;
         }
         this.burnFrom = Object.assign(burnFrom_send, {
             call:burnFrom_call
         });
-        let decreaseAllowanceParams = (params: IDecreaseAllowanceParams) => [params.spender,Utils.toString(params.subtractedValue)];
-        let decreaseAllowance_send = async (params: IDecreaseAllowanceParams): Promise<TransactionReceipt> => {
-            let result = await this.send('decreaseAllowance',decreaseAllowanceParams(params));
+        let decreaseAllowanceParams = (params: IDecreaseAllowanceParams) => [params.spender,this.wallet.utils.toString(params.subtractedValue)];
+        let decreaseAllowance_send = async (params: IDecreaseAllowanceParams, options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('decreaseAllowance',decreaseAllowanceParams(params),options);
             return result;
         }
-        let decreaseAllowance_call = async (params: IDecreaseAllowanceParams): Promise<boolean> => {
-            let result = await this.call('decreaseAllowance',decreaseAllowanceParams(params));
+        let decreaseAllowance_call = async (params: IDecreaseAllowanceParams, options?: TransactionOptions): Promise<boolean> => {
+            let result = await this.call('decreaseAllowance',decreaseAllowanceParams(params),options);
             return result;
         }
         this.decreaseAllowance = Object.assign(decreaseAllowance_send, {
             call:decreaseAllowance_call
         });
-        let grantRoleParams = (params: IGrantRoleParams) => [Utils.stringToBytes32(params.role),params.account];
-        let grantRole_send = async (params: IGrantRoleParams): Promise<TransactionReceipt> => {
-            let result = await this.send('grantRole',grantRoleParams(params));
+        let grantRoleParams = (params: IGrantRoleParams) => [this.wallet.utils.stringToBytes32(params.role),params.account];
+        let grantRole_send = async (params: IGrantRoleParams, options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('grantRole',grantRoleParams(params),options);
             return result;
         }
-        let grantRole_call = async (params: IGrantRoleParams): Promise<void> => {
-            let result = await this.call('grantRole',grantRoleParams(params));
+        let grantRole_call = async (params: IGrantRoleParams, options?: TransactionOptions): Promise<void> => {
+            let result = await this.call('grantRole',grantRoleParams(params),options);
             return;
         }
         this.grantRole = Object.assign(grantRole_send, {
             call:grantRole_call
         });
-        let increaseAllowanceParams = (params: IIncreaseAllowanceParams) => [params.spender,Utils.toString(params.addedValue)];
-        let increaseAllowance_send = async (params: IIncreaseAllowanceParams): Promise<TransactionReceipt> => {
-            let result = await this.send('increaseAllowance',increaseAllowanceParams(params));
+        let increaseAllowanceParams = (params: IIncreaseAllowanceParams) => [params.spender,this.wallet.utils.toString(params.addedValue)];
+        let increaseAllowance_send = async (params: IIncreaseAllowanceParams, options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('increaseAllowance',increaseAllowanceParams(params),options);
             return result;
         }
-        let increaseAllowance_call = async (params: IIncreaseAllowanceParams): Promise<boolean> => {
-            let result = await this.call('increaseAllowance',increaseAllowanceParams(params));
+        let increaseAllowance_call = async (params: IIncreaseAllowanceParams, options?: TransactionOptions): Promise<boolean> => {
+            let result = await this.call('increaseAllowance',increaseAllowanceParams(params),options);
             return result;
         }
         this.increaseAllowance = Object.assign(increaseAllowance_send, {
             call:increaseAllowance_call
         });
-        let mintParams = (params: IMintParams) => [params.to,Utils.toString(params.amount)];
-        let mint_send = async (params: IMintParams): Promise<TransactionReceipt> => {
-            let result = await this.send('mint',mintParams(params));
+        let mintParams = (params: IMintParams) => [params.to,this.wallet.utils.toString(params.amount)];
+        let mint_send = async (params: IMintParams, options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('mint',mintParams(params),options);
             return result;
         }
-        let mint_call = async (params: IMintParams): Promise<void> => {
-            let result = await this.call('mint',mintParams(params));
+        let mint_call = async (params: IMintParams, options?: TransactionOptions): Promise<void> => {
+            let result = await this.call('mint',mintParams(params),options);
             return;
         }
         this.mint = Object.assign(mint_send, {
             call:mint_call
         });
-        let pause_send = async (): Promise<TransactionReceipt> => {
-            let result = await this.send('pause');
+        let pause_send = async (options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('pause',[],options);
             return result;
         }
-        let pause_call = async (): Promise<void> => {
-            let result = await this.call('pause');
+        let pause_call = async (options?: TransactionOptions): Promise<void> => {
+            let result = await this.call('pause',[],options);
             return;
         }
         this.pause = Object.assign(pause_send, {
             call:pause_call
         });
-        let renounceRoleParams = (params: IRenounceRoleParams) => [Utils.stringToBytes32(params.role),params.account];
-        let renounceRole_send = async (params: IRenounceRoleParams): Promise<TransactionReceipt> => {
-            let result = await this.send('renounceRole',renounceRoleParams(params));
+        let renounceRoleParams = (params: IRenounceRoleParams) => [this.wallet.utils.stringToBytes32(params.role),params.account];
+        let renounceRole_send = async (params: IRenounceRoleParams, options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('renounceRole',renounceRoleParams(params),options);
             return result;
         }
-        let renounceRole_call = async (params: IRenounceRoleParams): Promise<void> => {
-            let result = await this.call('renounceRole',renounceRoleParams(params));
+        let renounceRole_call = async (params: IRenounceRoleParams, options?: TransactionOptions): Promise<void> => {
+            let result = await this.call('renounceRole',renounceRoleParams(params),options);
             return;
         }
         this.renounceRole = Object.assign(renounceRole_send, {
             call:renounceRole_call
         });
-        let revokeRoleParams = (params: IRevokeRoleParams) => [Utils.stringToBytes32(params.role),params.account];
-        let revokeRole_send = async (params: IRevokeRoleParams): Promise<TransactionReceipt> => {
-            let result = await this.send('revokeRole',revokeRoleParams(params));
+        let revokeRoleParams = (params: IRevokeRoleParams) => [this.wallet.utils.stringToBytes32(params.role),params.account];
+        let revokeRole_send = async (params: IRevokeRoleParams, options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('revokeRole',revokeRoleParams(params),options);
             return result;
         }
-        let revokeRole_call = async (params: IRevokeRoleParams): Promise<void> => {
-            let result = await this.call('revokeRole',revokeRoleParams(params));
+        let revokeRole_call = async (params: IRevokeRoleParams, options?: TransactionOptions): Promise<void> => {
+            let result = await this.call('revokeRole',revokeRoleParams(params),options);
             return;
         }
         this.revokeRole = Object.assign(revokeRole_send, {
             call:revokeRole_call
         });
-        let transferParams = (params: ITransferParams) => [params.to,Utils.toString(params.amount)];
-        let transfer_send = async (params: ITransferParams): Promise<TransactionReceipt> => {
-            let result = await this.send('transfer',transferParams(params));
+        let transferParams = (params: ITransferParams) => [params.to,this.wallet.utils.toString(params.amount)];
+        let transfer_send = async (params: ITransferParams, options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('transfer',transferParams(params),options);
             return result;
         }
-        let transfer_call = async (params: ITransferParams): Promise<boolean> => {
-            let result = await this.call('transfer',transferParams(params));
+        let transfer_call = async (params: ITransferParams, options?: TransactionOptions): Promise<boolean> => {
+            let result = await this.call('transfer',transferParams(params),options);
             return result;
         }
         this.transfer = Object.assign(transfer_send, {
             call:transfer_call
         });
-        let transferFromParams = (params: ITransferFromParams) => [params.from,params.to,Utils.toString(params.amount)];
-        let transferFrom_send = async (params: ITransferFromParams): Promise<TransactionReceipt> => {
-            let result = await this.send('transferFrom',transferFromParams(params));
+        let transferFromParams = (params: ITransferFromParams) => [params.from,params.to,this.wallet.utils.toString(params.amount)];
+        let transferFrom_send = async (params: ITransferFromParams, options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('transferFrom',transferFromParams(params),options);
             return result;
         }
-        let transferFrom_call = async (params: ITransferFromParams): Promise<boolean> => {
-            let result = await this.call('transferFrom',transferFromParams(params));
+        let transferFrom_call = async (params: ITransferFromParams, options?: TransactionOptions): Promise<boolean> => {
+            let result = await this.call('transferFrom',transferFromParams(params),options);
             return result;
         }
         this.transferFrom = Object.assign(transferFrom_send, {
             call:transferFrom_call
         });
-        let unpause_send = async (): Promise<TransactionReceipt> => {
-            let result = await this.send('unpause');
+        let unpause_send = async (options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('unpause',[],options);
             return result;
         }
-        let unpause_call = async (): Promise<void> => {
-            let result = await this.call('unpause');
+        let unpause_call = async (options?: TransactionOptions): Promise<void> => {
+            let result = await this.call('unpause',[],options);
             return;
         }
         this.unpause = Object.assign(unpause_send, {

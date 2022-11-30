@@ -1,4 +1,4 @@
-import { IWallet, Contract, TransactionReceipt, BigNumber, Event } from "@ijstech/eth-wallet";
+import { IWallet, Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
 export interface IDeployParams {
     token: string;
     maximumTotalLock: number | BigNumber;
@@ -9,54 +9,54 @@ export interface IDeployParams {
 }
 export declare class TimeIsMoney extends Contract {
     constructor(wallet: IWallet, address?: string);
-    deploy(params: IDeployParams): Promise<string>;
+    deploy(params: IDeployParams, options?: TransactionOptions): Promise<string>;
     parseDepositEvent(receipt: TransactionReceipt): TimeIsMoney.DepositEvent[];
     decodeDepositEvent(event: Event): TimeIsMoney.DepositEvent;
     parseWithdrawalEvent(receipt: TransactionReceipt): TimeIsMoney.WithdrawalEvent[];
     decodeWithdrawalEvent(event: Event): TimeIsMoney.WithdrawalEvent;
     endOfEntryPeriod: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     };
     getCredit: {
-        (account: string): Promise<BigNumber>;
+        (account: string, options?: TransactionOptions): Promise<BigNumber>;
     };
     lock: {
-        (amount: number | BigNumber): Promise<TransactionReceipt>;
-        call: (amount: number | BigNumber) => Promise<void>;
+        (amount: number | BigNumber, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (amount: number | BigNumber, options?: TransactionOptions) => Promise<void>;
     };
     lockAmount: {
-        (param1: string): Promise<BigNumber>;
+        (param1: string, options?: TransactionOptions): Promise<BigNumber>;
     };
     maximumTotalLock: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     };
     minimumLockTime: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     };
     perAddressCap: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     };
     readyToWithdraw: {
-        (account: string): Promise<boolean>;
+        (account: string, options?: TransactionOptions): Promise<boolean>;
     };
     releaseTime: {
-        (param1: string): Promise<BigNumber>;
+        (param1: string, options?: TransactionOptions): Promise<BigNumber>;
     };
     startOfEntryPeriod: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     };
     token: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     };
     totalLocked: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     };
     withdraw: {
-        (allowWithdrawalBeforeRelease: boolean): Promise<TransactionReceipt>;
-        call: (allowWithdrawalBeforeRelease: boolean) => Promise<void>;
+        (allowWithdrawalBeforeRelease: boolean, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (allowWithdrawalBeforeRelease: boolean, options?: TransactionOptions) => Promise<void>;
     };
     withdrawn: {
-        (param1: string): Promise<boolean>;
+        (param1: string, options?: TransactionOptions): Promise<boolean>;
     };
     private assign;
 }

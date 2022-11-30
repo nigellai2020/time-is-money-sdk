@@ -1,4 +1,4 @@
-import { IWallet, Contract, TransactionReceipt, BigNumber, Event } from "@ijstech/eth-wallet";
+import { IWallet, Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
 export interface IDeployParams {
     name: string;
     symbol: string;
@@ -58,7 +58,7 @@ export interface ITransferFromParams {
 }
 export declare class ERC20PresetMinterPauser extends Contract {
     constructor(wallet: IWallet, address?: string);
-    deploy(params: IDeployParams): Promise<string>;
+    deploy(params: IDeployParams, options?: TransactionOptions): Promise<string>;
     parseApprovalEvent(receipt: TransactionReceipt): ERC20PresetMinterPauser.ApprovalEvent[];
     decodeApprovalEvent(event: Event): ERC20PresetMinterPauser.ApprovalEvent;
     parsePausedEvent(receipt: TransactionReceipt): ERC20PresetMinterPauser.PausedEvent[];
@@ -74,101 +74,101 @@ export declare class ERC20PresetMinterPauser extends Contract {
     parseUnpausedEvent(receipt: TransactionReceipt): ERC20PresetMinterPauser.UnpausedEvent[];
     decodeUnpausedEvent(event: Event): ERC20PresetMinterPauser.UnpausedEvent;
     DEFAULT_ADMIN_ROLE: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     };
     MINTER_ROLE: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     };
     PAUSER_ROLE: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     };
     allowance: {
-        (params: IAllowanceParams): Promise<BigNumber>;
+        (params: IAllowanceParams, options?: TransactionOptions): Promise<BigNumber>;
     };
     approve: {
-        (params: IApproveParams): Promise<TransactionReceipt>;
-        call: (params: IApproveParams) => Promise<boolean>;
+        (params: IApproveParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IApproveParams, options?: TransactionOptions) => Promise<boolean>;
     };
     balanceOf: {
-        (account: string): Promise<BigNumber>;
+        (account: string, options?: TransactionOptions): Promise<BigNumber>;
     };
     burn: {
-        (amount: number | BigNumber): Promise<TransactionReceipt>;
-        call: (amount: number | BigNumber) => Promise<void>;
+        (amount: number | BigNumber, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (amount: number | BigNumber, options?: TransactionOptions) => Promise<void>;
     };
     burnFrom: {
-        (params: IBurnFromParams): Promise<TransactionReceipt>;
-        call: (params: IBurnFromParams) => Promise<void>;
+        (params: IBurnFromParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IBurnFromParams, options?: TransactionOptions) => Promise<void>;
     };
     decimals: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     };
     decreaseAllowance: {
-        (params: IDecreaseAllowanceParams): Promise<TransactionReceipt>;
-        call: (params: IDecreaseAllowanceParams) => Promise<boolean>;
+        (params: IDecreaseAllowanceParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IDecreaseAllowanceParams, options?: TransactionOptions) => Promise<boolean>;
     };
     getRoleAdmin: {
-        (role: string): Promise<string>;
+        (role: string, options?: TransactionOptions): Promise<string>;
     };
     getRoleMember: {
-        (params: IGetRoleMemberParams): Promise<string>;
+        (params: IGetRoleMemberParams, options?: TransactionOptions): Promise<string>;
     };
     getRoleMemberCount: {
-        (role: string): Promise<BigNumber>;
+        (role: string, options?: TransactionOptions): Promise<BigNumber>;
     };
     grantRole: {
-        (params: IGrantRoleParams): Promise<TransactionReceipt>;
-        call: (params: IGrantRoleParams) => Promise<void>;
+        (params: IGrantRoleParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IGrantRoleParams, options?: TransactionOptions) => Promise<void>;
     };
     hasRole: {
-        (params: IHasRoleParams): Promise<boolean>;
+        (params: IHasRoleParams, options?: TransactionOptions): Promise<boolean>;
     };
     increaseAllowance: {
-        (params: IIncreaseAllowanceParams): Promise<TransactionReceipt>;
-        call: (params: IIncreaseAllowanceParams) => Promise<boolean>;
+        (params: IIncreaseAllowanceParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IIncreaseAllowanceParams, options?: TransactionOptions) => Promise<boolean>;
     };
     mint: {
-        (params: IMintParams): Promise<TransactionReceipt>;
-        call: (params: IMintParams) => Promise<void>;
+        (params: IMintParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IMintParams, options?: TransactionOptions) => Promise<void>;
     };
     name: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     };
     pause: {
-        (): Promise<TransactionReceipt>;
-        call: () => Promise<void>;
+        (options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (options?: TransactionOptions) => Promise<void>;
     };
     paused: {
-        (): Promise<boolean>;
+        (options?: TransactionOptions): Promise<boolean>;
     };
     renounceRole: {
-        (params: IRenounceRoleParams): Promise<TransactionReceipt>;
-        call: (params: IRenounceRoleParams) => Promise<void>;
+        (params: IRenounceRoleParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IRenounceRoleParams, options?: TransactionOptions) => Promise<void>;
     };
     revokeRole: {
-        (params: IRevokeRoleParams): Promise<TransactionReceipt>;
-        call: (params: IRevokeRoleParams) => Promise<void>;
+        (params: IRevokeRoleParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IRevokeRoleParams, options?: TransactionOptions) => Promise<void>;
     };
     supportsInterface: {
-        (interfaceId: string): Promise<boolean>;
+        (interfaceId: string, options?: TransactionOptions): Promise<boolean>;
     };
     symbol: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     };
     totalSupply: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     };
     transfer: {
-        (params: ITransferParams): Promise<TransactionReceipt>;
-        call: (params: ITransferParams) => Promise<boolean>;
+        (params: ITransferParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: ITransferParams, options?: TransactionOptions) => Promise<boolean>;
     };
     transferFrom: {
-        (params: ITransferFromParams): Promise<TransactionReceipt>;
-        call: (params: ITransferFromParams) => Promise<boolean>;
+        (params: ITransferFromParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: ITransferFromParams, options?: TransactionOptions) => Promise<boolean>;
     };
     unpause: {
-        (): Promise<TransactionReceipt>;
-        call: () => Promise<void>;
+        (options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (options?: TransactionOptions) => Promise<void>;
     };
     private assign;
 }

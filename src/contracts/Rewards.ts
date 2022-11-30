@@ -1,4 +1,4 @@
-import {IWallet, Contract, Transaction, TransactionReceipt, Utils, BigNumber, Event, IBatchRequestObj} from "@ijstech/eth-wallet";
+import {IWallet, Contract, Transaction, TransactionReceipt, BigNumber, Event, IBatchRequestObj, TransactionOptions} from "@ijstech/eth-contract";
 import Bin from "./Rewards.json";
 
 export interface IDeployParams {timeIsMoney:string;token:string;multiplier:number|BigNumber;initialReward:number|BigNumber;vestingPeriod:number|BigNumber;claimDeadline:number|BigNumber;admin:string}
@@ -8,8 +8,8 @@ export class Rewards extends Contract{
         super(wallet, address, Bin.abi, Bin.bytecode);
         this.assign()
     }
-    deploy(params: IDeployParams): Promise<string>{
-        return this.__deploy([params.timeIsMoney,params.token,Utils.toString(params.multiplier),Utils.toString(params.initialReward),Utils.toString(params.vestingPeriod),Utils.toString(params.claimDeadline),params.admin]);
+    deploy(params: IDeployParams, options?: TransactionOptions): Promise<string>{
+        return this.__deploy([params.timeIsMoney,params.token,this.wallet.utils.toString(params.multiplier),this.wallet.utils.toString(params.initialReward),this.wallet.utils.toString(params.vestingPeriod),this.wallet.utils.toString(params.claimDeadline),params.admin], options);
     }
     parseAdminDrainEvent(receipt: TransactionReceipt): Rewards.AdminDrainEvent[]{
         return this.parseEvents(receipt, "AdminDrain").map(e=>this.decodeAdminDrainEvent(e));
@@ -34,158 +34,158 @@ export class Rewards extends Contract{
         };
     }
     admin: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     }
     claim: {
-        (): Promise<TransactionReceipt>;
-        call: () => Promise<void>;
+        (options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (options?: TransactionOptions) => Promise<void>;
     }
     claimDeadline: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     }
     claimFor: {
-        (account:string): Promise<TransactionReceipt>;
-        call: (account:string) => Promise<void>;
+        (account:string, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (account:string, options?: TransactionOptions) => Promise<void>;
     }
     claimSoFar: {
-        (param1:string): Promise<BigNumber>;
+        (param1:string, options?: TransactionOptions): Promise<BigNumber>;
     }
     initialReward: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     }
     multiplier: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     }
     putFund: {
-        (params: IPutFundParams): Promise<TransactionReceipt>;
-        call: (params: IPutFundParams) => Promise<void>;
+        (params: IPutFundParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IPutFundParams, options?: TransactionOptions) => Promise<void>;
     }
     reward: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     }
     rewardForAccount: {
-        (account:string): Promise<BigNumber>;
+        (account:string, options?: TransactionOptions): Promise<BigNumber>;
     }
     takeUnclaimed: {
-        (): Promise<TransactionReceipt>;
-        call: () => Promise<void>;
+        (options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (options?: TransactionOptions) => Promise<void>;
     }
     timeIsMoney: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     }
     token: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     }
     unclaimed: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     }
     unclaimedForAccount: {
-        (account:string): Promise<BigNumber>;
+        (account:string, options?: TransactionOptions): Promise<BigNumber>;
     }
     vestingPeriod: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     }
     private assign(){
-        let admin_call = async (): Promise<string> => {
-            let result = await this.call('admin');
+        let admin_call = async (options?: TransactionOptions): Promise<string> => {
+            let result = await this.call('admin',[],options);
             return result;
         }
         this.admin = admin_call
-        let claimDeadline_call = async (): Promise<BigNumber> => {
-            let result = await this.call('claimDeadline');
+        let claimDeadline_call = async (options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('claimDeadline',[],options);
             return new BigNumber(result);
         }
         this.claimDeadline = claimDeadline_call
-        let claimSoFar_call = async (param1:string): Promise<BigNumber> => {
-            let result = await this.call('claimSoFar',[param1]);
+        let claimSoFar_call = async (param1:string, options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('claimSoFar',[param1],options);
             return new BigNumber(result);
         }
         this.claimSoFar = claimSoFar_call
-        let initialReward_call = async (): Promise<BigNumber> => {
-            let result = await this.call('initialReward');
+        let initialReward_call = async (options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('initialReward',[],options);
             return new BigNumber(result);
         }
         this.initialReward = initialReward_call
-        let multiplier_call = async (): Promise<BigNumber> => {
-            let result = await this.call('multiplier');
+        let multiplier_call = async (options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('multiplier',[],options);
             return new BigNumber(result);
         }
         this.multiplier = multiplier_call
-        let reward_call = async (): Promise<BigNumber> => {
-            let result = await this.call('reward');
+        let reward_call = async (options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('reward',[],options);
             return new BigNumber(result);
         }
         this.reward = reward_call
-        let rewardForAccount_call = async (account:string): Promise<BigNumber> => {
-            let result = await this.call('rewardForAccount',[account]);
+        let rewardForAccount_call = async (account:string, options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('rewardForAccount',[account],options);
             return new BigNumber(result);
         }
         this.rewardForAccount = rewardForAccount_call
-        let timeIsMoney_call = async (): Promise<string> => {
-            let result = await this.call('timeIsMoney');
+        let timeIsMoney_call = async (options?: TransactionOptions): Promise<string> => {
+            let result = await this.call('timeIsMoney',[],options);
             return result;
         }
         this.timeIsMoney = timeIsMoney_call
-        let token_call = async (): Promise<string> => {
-            let result = await this.call('token');
+        let token_call = async (options?: TransactionOptions): Promise<string> => {
+            let result = await this.call('token',[],options);
             return result;
         }
         this.token = token_call
-        let unclaimed_call = async (): Promise<BigNumber> => {
-            let result = await this.call('unclaimed');
+        let unclaimed_call = async (options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('unclaimed',[],options);
             return new BigNumber(result);
         }
         this.unclaimed = unclaimed_call
-        let unclaimedForAccount_call = async (account:string): Promise<BigNumber> => {
-            let result = await this.call('unclaimedForAccount',[account]);
+        let unclaimedForAccount_call = async (account:string, options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('unclaimedForAccount',[account],options);
             return new BigNumber(result);
         }
         this.unclaimedForAccount = unclaimedForAccount_call
-        let vestingPeriod_call = async (): Promise<BigNumber> => {
-            let result = await this.call('vestingPeriod');
+        let vestingPeriod_call = async (options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('vestingPeriod',[],options);
             return new BigNumber(result);
         }
         this.vestingPeriod = vestingPeriod_call
-        let claim_send = async (): Promise<TransactionReceipt> => {
-            let result = await this.send('claim');
+        let claim_send = async (options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('claim',[],options);
             return result;
         }
-        let claim_call = async (): Promise<void> => {
-            let result = await this.call('claim');
+        let claim_call = async (options?: TransactionOptions): Promise<void> => {
+            let result = await this.call('claim',[],options);
             return;
         }
         this.claim = Object.assign(claim_send, {
             call:claim_call
         });
-        let claimFor_send = async (account:string): Promise<TransactionReceipt> => {
-            let result = await this.send('claimFor',[account]);
+        let claimFor_send = async (account:string, options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('claimFor',[account],options);
             return result;
         }
-        let claimFor_call = async (account:string): Promise<void> => {
-            let result = await this.call('claimFor',[account]);
+        let claimFor_call = async (account:string, options?: TransactionOptions): Promise<void> => {
+            let result = await this.call('claimFor',[account],options);
             return;
         }
         this.claimFor = Object.assign(claimFor_send, {
             call:claimFor_call
         });
-        let putFundParams = (params: IPutFundParams) => [params.from,Utils.toString(params.amount)];
-        let putFund_send = async (params: IPutFundParams): Promise<TransactionReceipt> => {
-            let result = await this.send('putFund',putFundParams(params));
+        let putFundParams = (params: IPutFundParams) => [params.from,this.wallet.utils.toString(params.amount)];
+        let putFund_send = async (params: IPutFundParams, options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('putFund',putFundParams(params),options);
             return result;
         }
-        let putFund_call = async (params: IPutFundParams): Promise<void> => {
-            let result = await this.call('putFund',putFundParams(params));
+        let putFund_call = async (params: IPutFundParams, options?: TransactionOptions): Promise<void> => {
+            let result = await this.call('putFund',putFundParams(params),options);
             return;
         }
         this.putFund = Object.assign(putFund_send, {
             call:putFund_call
         });
-        let takeUnclaimed_send = async (): Promise<TransactionReceipt> => {
-            let result = await this.send('takeUnclaimed');
+        let takeUnclaimed_send = async (options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('takeUnclaimed',[],options);
             return result;
         }
-        let takeUnclaimed_call = async (): Promise<void> => {
-            let result = await this.call('takeUnclaimed');
+        let takeUnclaimed_call = async (options?: TransactionOptions): Promise<void> => {
+            let result = await this.call('takeUnclaimed',[],options);
             return;
         }
         this.takeUnclaimed = Object.assign(takeUnclaimed_send, {

@@ -1,4 +1,4 @@
-import { IWallet, Contract, TransactionReceipt, BigNumber, Event } from "@ijstech/eth-wallet";
+import { IWallet, Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
 export interface IDeployParams {
     timeIsMoney: string;
     token: string;
@@ -14,62 +14,62 @@ export interface IPutFundParams {
 }
 export declare class Rewards extends Contract {
     constructor(wallet: IWallet, address?: string);
-    deploy(params: IDeployParams): Promise<string>;
+    deploy(params: IDeployParams, options?: TransactionOptions): Promise<string>;
     parseAdminDrainEvent(receipt: TransactionReceipt): Rewards.AdminDrainEvent[];
     decodeAdminDrainEvent(event: Event): Rewards.AdminDrainEvent;
     parseClaimEvent(receipt: TransactionReceipt): Rewards.ClaimEvent[];
     decodeClaimEvent(event: Event): Rewards.ClaimEvent;
     admin: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     };
     claim: {
-        (): Promise<TransactionReceipt>;
-        call: () => Promise<void>;
+        (options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (options?: TransactionOptions) => Promise<void>;
     };
     claimDeadline: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     };
     claimFor: {
-        (account: string): Promise<TransactionReceipt>;
-        call: (account: string) => Promise<void>;
+        (account: string, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (account: string, options?: TransactionOptions) => Promise<void>;
     };
     claimSoFar: {
-        (param1: string): Promise<BigNumber>;
+        (param1: string, options?: TransactionOptions): Promise<BigNumber>;
     };
     initialReward: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     };
     multiplier: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     };
     putFund: {
-        (params: IPutFundParams): Promise<TransactionReceipt>;
-        call: (params: IPutFundParams) => Promise<void>;
+        (params: IPutFundParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (params: IPutFundParams, options?: TransactionOptions) => Promise<void>;
     };
     reward: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     };
     rewardForAccount: {
-        (account: string): Promise<BigNumber>;
+        (account: string, options?: TransactionOptions): Promise<BigNumber>;
     };
     takeUnclaimed: {
-        (): Promise<TransactionReceipt>;
-        call: () => Promise<void>;
+        (options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (options?: TransactionOptions) => Promise<void>;
     };
     timeIsMoney: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     };
     token: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     };
     unclaimed: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     };
     unclaimedForAccount: {
-        (account: string): Promise<BigNumber>;
+        (account: string, options?: TransactionOptions): Promise<BigNumber>;
     };
     vestingPeriod: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     };
     private assign;
 }

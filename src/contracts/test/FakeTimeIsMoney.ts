@@ -1,4 +1,4 @@
-import {IWallet, Contract, Transaction, TransactionReceipt, Utils, BigNumber, Event, IBatchRequestObj} from "@ijstech/eth-wallet";
+import {IWallet, Contract, Transaction, TransactionReceipt, BigNumber, Event, IBatchRequestObj, TransactionOptions} from "@ijstech/eth-contract";
 import Bin from "./FakeTimeIsMoney.json";
 
 export class FakeTimeIsMoney extends Contract{
@@ -6,8 +6,8 @@ export class FakeTimeIsMoney extends Contract{
         super(wallet, address, Bin.abi, Bin.bytecode);
         this.assign()
     }
-    deploy(token:string): Promise<string>{
-        return this.__deploy([token]);
+    deploy(token:string, options?: TransactionOptions): Promise<string>{
+        return this.__deploy([token], options);
     }
     parseDepositEvent(receipt: TransactionReceipt): FakeTimeIsMoney.DepositEvent[]{
         return this.parseEvents(receipt, "Deposit").map(e=>this.decodeDepositEvent(e));
@@ -33,136 +33,136 @@ export class FakeTimeIsMoney extends Contract{
         };
     }
     amount: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     }
     endOfEntryPeriod: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     }
     getCredit: {
-        (param1:string): Promise<BigNumber>;
+        (param1:string, options?: TransactionOptions): Promise<BigNumber>;
     }
     lock: {
-        (param1:number|BigNumber): Promise<void>;
+        (param1:number|BigNumber, options?: TransactionOptions): Promise<void>;
     }
     lockAmount: {
-        (param1:string): Promise<BigNumber>;
+        (param1:string, options?: TransactionOptions): Promise<BigNumber>;
     }
     maximumTotalLock: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     }
     minimumLockTime: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     }
     perAddressCap: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     }
     readyToWithdraw: {
-        (param1:string): Promise<boolean>;
+        (param1:string, options?: TransactionOptions): Promise<boolean>;
     }
     releaseTime: {
-        (param1:string): Promise<BigNumber>;
+        (param1:string, options?: TransactionOptions): Promise<BigNumber>;
     }
     setAmount: {
-        (amount:number|BigNumber): Promise<TransactionReceipt>;
-        call: (amount:number|BigNumber) => Promise<void>;
+        (amount:number|BigNumber, options?: TransactionOptions): Promise<TransactionReceipt>;
+        call: (amount:number|BigNumber, options?: TransactionOptions) => Promise<void>;
     }
     startOfEntryPeriod: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     }
     token: {
-        (): Promise<string>;
+        (options?: TransactionOptions): Promise<string>;
     }
     totalLocked: {
-        (): Promise<BigNumber>;
+        (options?: TransactionOptions): Promise<BigNumber>;
     }
     withdraw: {
-        (param1:boolean): Promise<void>;
+        (param1:boolean, options?: TransactionOptions): Promise<void>;
     }
     withdrawn: {
-        (param1:string): Promise<boolean>;
+        (param1:string, options?: TransactionOptions): Promise<boolean>;
     }
     private assign(){
-        let amount_call = async (): Promise<BigNumber> => {
-            let result = await this.call('amount');
+        let amount_call = async (options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('amount',[],options);
             return new BigNumber(result);
         }
         this.amount = amount_call
-        let endOfEntryPeriod_call = async (): Promise<BigNumber> => {
-            let result = await this.call('endOfEntryPeriod');
+        let endOfEntryPeriod_call = async (options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('endOfEntryPeriod',[],options);
             return new BigNumber(result);
         }
         this.endOfEntryPeriod = endOfEntryPeriod_call
-        let getCredit_call = async (param1:string): Promise<BigNumber> => {
-            let result = await this.call('getCredit',[param1]);
+        let getCredit_call = async (param1:string, options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('getCredit',[param1],options);
             return new BigNumber(result);
         }
         this.getCredit = getCredit_call
-        let lock_call = async (param1:number|BigNumber): Promise<void> => {
-            let result = await this.call('lock',[Utils.toString(param1)]);
+        let lock_call = async (param1:number|BigNumber, options?: TransactionOptions): Promise<void> => {
+            let result = await this.call('lock',[this.wallet.utils.toString(param1)],options);
             return;
         }
         this.lock = lock_call
-        let lockAmount_call = async (param1:string): Promise<BigNumber> => {
-            let result = await this.call('lockAmount',[param1]);
+        let lockAmount_call = async (param1:string, options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('lockAmount',[param1],options);
             return new BigNumber(result);
         }
         this.lockAmount = lockAmount_call
-        let maximumTotalLock_call = async (): Promise<BigNumber> => {
-            let result = await this.call('maximumTotalLock');
+        let maximumTotalLock_call = async (options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('maximumTotalLock',[],options);
             return new BigNumber(result);
         }
         this.maximumTotalLock = maximumTotalLock_call
-        let minimumLockTime_call = async (): Promise<BigNumber> => {
-            let result = await this.call('minimumLockTime');
+        let minimumLockTime_call = async (options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('minimumLockTime',[],options);
             return new BigNumber(result);
         }
         this.minimumLockTime = minimumLockTime_call
-        let perAddressCap_call = async (): Promise<BigNumber> => {
-            let result = await this.call('perAddressCap');
+        let perAddressCap_call = async (options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('perAddressCap',[],options);
             return new BigNumber(result);
         }
         this.perAddressCap = perAddressCap_call
-        let readyToWithdraw_call = async (param1:string): Promise<boolean> => {
-            let result = await this.call('readyToWithdraw',[param1]);
+        let readyToWithdraw_call = async (param1:string, options?: TransactionOptions): Promise<boolean> => {
+            let result = await this.call('readyToWithdraw',[param1],options);
             return result;
         }
         this.readyToWithdraw = readyToWithdraw_call
-        let releaseTime_call = async (param1:string): Promise<BigNumber> => {
-            let result = await this.call('releaseTime',[param1]);
+        let releaseTime_call = async (param1:string, options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('releaseTime',[param1],options);
             return new BigNumber(result);
         }
         this.releaseTime = releaseTime_call
-        let startOfEntryPeriod_call = async (): Promise<BigNumber> => {
-            let result = await this.call('startOfEntryPeriod');
+        let startOfEntryPeriod_call = async (options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('startOfEntryPeriod',[],options);
             return new BigNumber(result);
         }
         this.startOfEntryPeriod = startOfEntryPeriod_call
-        let token_call = async (): Promise<string> => {
-            let result = await this.call('token');
+        let token_call = async (options?: TransactionOptions): Promise<string> => {
+            let result = await this.call('token',[],options);
             return result;
         }
         this.token = token_call
-        let totalLocked_call = async (): Promise<BigNumber> => {
-            let result = await this.call('totalLocked');
+        let totalLocked_call = async (options?: TransactionOptions): Promise<BigNumber> => {
+            let result = await this.call('totalLocked',[],options);
             return new BigNumber(result);
         }
         this.totalLocked = totalLocked_call
-        let withdraw_call = async (param1:boolean): Promise<void> => {
-            let result = await this.call('withdraw',[param1]);
+        let withdraw_call = async (param1:boolean, options?: TransactionOptions): Promise<void> => {
+            let result = await this.call('withdraw',[param1],options);
             return;
         }
         this.withdraw = withdraw_call
-        let withdrawn_call = async (param1:string): Promise<boolean> => {
-            let result = await this.call('withdrawn',[param1]);
+        let withdrawn_call = async (param1:string, options?: TransactionOptions): Promise<boolean> => {
+            let result = await this.call('withdrawn',[param1],options);
             return result;
         }
         this.withdrawn = withdrawn_call
-        let setAmount_send = async (amount:number|BigNumber): Promise<TransactionReceipt> => {
-            let result = await this.send('setAmount',[Utils.toString(amount)]);
+        let setAmount_send = async (amount:number|BigNumber, options?: TransactionOptions): Promise<TransactionReceipt> => {
+            let result = await this.send('setAmount',[this.wallet.utils.toString(amount)],options);
             return result;
         }
-        let setAmount_call = async (amount:number|BigNumber): Promise<void> => {
-            let result = await this.call('setAmount',[Utils.toString(amount)]);
+        let setAmount_call = async (amount:number|BigNumber, options?: TransactionOptions): Promise<void> => {
+            let result = await this.call('setAmount',[this.wallet.utils.toString(amount)],options);
             return;
         }
         this.setAmount = Object.assign(setAmount_send, {
