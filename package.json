@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "plugin": "dist/index.js",
   "types": "types/index.d.ts",
+  "pluginTypes": "pluginTypes/index.d.ts",
   "scripts": {
     "build": "rm -rf lib && rm -rf dist && rm -rf types && sol2ts contracts.config.json && npm run build:lib && npm run build:dist",
     "build:contracts": "rm -rf src/contracts && sol2ts contracts.json",
